@@ -7,3 +7,19 @@
 Test suite to verify the version of prometheus client is patched.
 
 See [PR](https://github.com/prometheus/client_java/pull/484) to original prometheus client repository.
+
+
+### Usage
+
+```scala
+resolvers += Resolver.bintrayRepo("evolutiongaming", "maven")
+
+libraryDependencies += "com.evolutiongaming" %% "prometheus-client-test" % "0.1.0" % Test
+```
+
+Create a test class
+```scala
+import com.evolutiongaming.prometheusclienttest.PrometheusClientSuite
+
+class PrometheusClientTest extends PrometheusClientSuite
+```
