@@ -20,6 +20,7 @@ lazy val commonSettings = Seq(
 
 lazy val root = project.in(file("."))
   .aggregate(`prometheus-client-test`, `prometheus-client-test-scalatest30`)
+  .settings(commonSettings)
   .settings(
     skip in publish := true
   )
