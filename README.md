@@ -14,7 +14,7 @@ See [PR](https://github.com/prometheus/client_java/pull/484) to original prometh
 ```scala
 resolvers += Resolver.bintrayRepo("evolutiongaming", "maven")
 
-libraryDependencies += "com.evolutiongaming" %% "prometheus-client-test" % "0.1.0" % Test
+libraryDependencies += "com.evolutiongaming" %% "prometheus-client-test" % "0.2.4" % Test
 ```
 
 Create a test class
