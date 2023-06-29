@@ -1,6 +1,6 @@
 name: ci
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   test:
@@ -10,23 +10,15 @@ jobs:
     strategy:
       matrix:
         scala:
-          - 2.13.3
-          - 2.12.10
+          - 2.13.11
+          - 2.12.18
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
-      - uses: actions/cache@v1
-        with:
-          path: ~/.cache/coursier/v1
-          key: ${{ runner.os }}-coursier-${{ hashFiles('**/build.sbt') }}
+      - uses: coursier/cache-action@v5
 
-      - uses: actions/cache@v1
-        with:
-          path: ~/.sbt
-          key: ${{ runner.os }}-sbt-${{ hashFiles('**/build.properties') }}
-
-      - uses: olafurpg/setup-scala@v7
+      - uses: olafurpg/setup-scala@v10
         with:
           java-version: openjdk@1.11
 
