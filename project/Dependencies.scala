@@ -7,6 +7,6 @@ object Dependencies {
     val simpleclient    = "io.prometheus" % "simpleclient" % version
   }
 
-  val scalatest30 = "org.scalatest" %% "scalatest" % "3.0.8"
-  val scalatest31 = "org.scalatest" %% "scalatest" % "3.1.0"
+  val scalatest30 = "org.scalatest" %% "scalatest" % "3.0.9"
+  val scalatest31 = "org.scalatest" %% "scalatest" % "3.2.15"
 }
