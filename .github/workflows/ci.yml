@@ -1,26 +1,13 @@
-name: ci
+name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+
+permissions:
+  contents: read
 
 jobs:
   test:
-
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        scala:
-          - 2.13.11
-          - 2.12.18
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: coursier/cache-action@v5
-
-      - uses: olafurpg/setup-scala@v10
-        with:
-          java-version: openjdk@1.11
-
-      - name: test ${{ matrix.scala }}
-        run: sbt ++${{ matrix.scala }} clean test
+    uses: evolution-gaming/scala-github-actions/.github/workflows/ci.yml@61f111a4472fde7b63e5921ac8a238f22d1bb028 # v7.0.1
