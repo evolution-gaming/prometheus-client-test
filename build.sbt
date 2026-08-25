@@ -1,4 +1,4 @@
-import Dependencies._
+import Dependencies.*
 
 lazy val commonSettings = Seq(
   organization := "com.evolutiongaming",
@@ -7,39 +7,36 @@ lazy val commonSettings = Seq(
   organizationName := "Evolution",
   organizationHomepage := Some(url("https://evolution.com")),
   scalaVersion := crossScalaVersions.value.head,
-  crossScalaVersions := Seq("2.13.11", "2.12.18"),
+  crossScalaVersions := Seq("2.13.18", "3.3.8"),
   Compile / doc / scalacOptions ++= Seq("-groups", "-implicits", "-no-link-warnings"),
   scalacOptsFailOnWarn := Some(false),
   licenses := Seq(("MIT", url("https://opensource.org/licenses/MIT"))),
-  releaseCrossBuild := true,
   libraryDependencies ++= Seq(Prometheus.simpleclient),
-  resolvers += Resolver.mavenLocal,
-  resolvers += Resolver.bintrayRepo("evolutiongaming", "maven"),
   publishTo := Some(Resolver.evolutionReleases),
+  versionPolicyIntention := {
+    // TODO temporary disable bin-compat check for first Scala 3 build
+    scalaBinaryVersion.value match {
+      case "2.13" => Compatibility.BinaryCompatible
+      case _ => Compatibility.None
+    }
+  },
 )
 
 val alias: Seq[sbt.Def.Setting[?]] =
-  //  addCommandAlias("check", "all versionPolicyCheck Compile/doc") ++
-  addCommandAlias("check", "show version") ++
+  addCommandAlias("check", "+all scalafmtCheckRepo versionPolicyCheck Compile/doc") ++
+    addCommandAlias("fmt", "scalafmtRepo") ++
     addCommandAlias("build", "+all compile test")
 
-
 lazy val root = project.in(file("."))
-  .aggregate(`prometheus-client-test`, `prometheus-client-test-scalatest30`)
+  .aggregate(`prometheus-client-test`)
   .settings(commonSettings)
   .settings(alias)
   .settings(
-    publish / skip := true
+    publish / skip := true,
   )
 
 lazy val `prometheus-client-test` = project
   .settings(commonSettings)
   .settings(
-    libraryDependencies ++= Seq(scalatest31),
-  )
-
-lazy val `prometheus-client-test-scalatest30` = project
-  .settings(commonSettings)
-  .settings(
-      libraryDependencies ++= Seq(scalatest30),
+    libraryDependencies ++= Seq(scalatest),
   )
