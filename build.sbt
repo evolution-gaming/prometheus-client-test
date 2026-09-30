@@ -13,13 +13,7 @@ lazy val commonSettings = Seq(
   licenses := Seq(("MIT", url("https://opensource.org/licenses/MIT"))),
   libraryDependencies ++= Seq(Prometheus.simpleclient),
   publishTo := Some(Resolver.evolutionReleases),
-  versionPolicyIntention := {
-    // TODO temporary disable bin-compat check for first Scala 3 build
-    scalaBinaryVersion.value match {
-      case "2.13" => Compatibility.BinaryCompatible
-      case _ => Compatibility.None
-    }
-  },
+  versionPolicyIntention := Compatibility.BinaryCompatible,
 )
 
 val alias: Seq[sbt.Def.Setting[?]] =
